@@ -1,7 +1,8 @@
-import { Professor } from './../shared/professor';
-import { MessageService } from './../shared/message.service';
-import { EstudanteService } from './../shared/estudante.service';
 import { Component, OnInit } from '@angular/core';
+
+import { EstudanteService } from './../shared/estudante.service';
+import { MessageService } from './../shared/message.service';
+import { Professor } from './../shared/professor';
 
 @Component({
   selector: 'app-professores',
@@ -26,7 +27,10 @@ export class ProfessoresComponent implements OnInit {
 
   getProfessores(): void {
     this.estudanteService.getProfessores()
-      .subscribe(professores => this.professores = professores);
+      .subscribe(professores => {
+        this.professores = professores;
+        this.messageService.add('Professores encontrados!');
+      });
   }
 
 }

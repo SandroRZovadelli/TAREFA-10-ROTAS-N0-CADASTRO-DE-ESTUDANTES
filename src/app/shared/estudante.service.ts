@@ -1,28 +1,27 @@
-import { Professor } from './professor';
-import { PROFESSORES } from './mock-professores';
-import { Estudante } from './estudante';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ESTUDANTES } from './mock-estudantes';
-import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
+import { Observable } from 'rxjs';
+
+import { Estudante } from './estudante';
+import { Professor } from './professor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstudanteService {
 
-  constructor(private messageService: MessageService) { }
+  baseUrl = 'http://localhost:3000';
+  estudanteUrl = this.baseUrl + '/estudantes';
+  professorUrl = this.baseUrl + '/professores';
+
+  constructor(private httpClient: HttpClient) { }
 
   getEstudantes(): Observable<Estudante[]> {
-    const estudantes = of(ESTUDANTES);
-    this.messageService.add('Alunos encontrados!');
-    return estudantes;
+    return this.httpClient.get<Estudante[]>(this.estudanteUrl);
   }
 
   getProfessores(): Observable<Professor[]> {
-    const professores = of(PROFESSORES);
-    this.messageService.add('Professores encontrados!');
-    return professores;
+    return this.httpClient.get<Professor[]>(this.professorUrl);
   }
   
 }

@@ -27,6 +27,10 @@ export class EstudantesComponent implements OnInit {
 
   getEstudantes(): void {
     this.estudanteService.getEstudantes()
-        .subscribe(estudantes => this.estudantes = estudantes);
+      .subscribe(estudantes => {
+        this.estudantes = estudantes;
+        this.messageService.add('Alunos encontrados!');
+      });
   }
+  
 }
